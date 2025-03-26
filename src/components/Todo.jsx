@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState } from "react";
 import React from "react";
 
 const Todo = () => {
@@ -7,17 +7,17 @@ const Todo = () => {
   const [newTodo, setNewTodo] = useState("");
   const [editMode, setEditMode] = useState(false);
 
-  useEffect(() => {
-    const savedTodos = JSON.parse(localStorage.getItem("todos")) || [];
-    const savedCompleted = JSON.parse(localStorage.getItem("completed")) || [];
-    setTodo(savedTodos);
-    setCompleted(savedCompleted);
-  }, []);
+  // useEffect(() => {
+  //   const savedTodos = JSON.parse(localStorage.getItem("todos")) || [];
+  //   const savedCompleted = JSON.parse(localStorage.getItem("completed")) || [];
+  //   setTodo(savedTodos);
+  //   setCompleted(savedCompleted);
+  // }, []);
 
-  useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todo));
-    localStorage.setItem("completed", JSON.stringify(completed));
-  }, [todo, completed]);
+  // useEffect(() => {
+  //   localStorage.setItem("todos", JSON.stringify(todo));
+  //   localStorage.setItem("completed", JSON.stringify(completed));
+  // }, [todo, completed]);
 
   const handleInput = (e) => {
     setNewTodo(e.target.value);
