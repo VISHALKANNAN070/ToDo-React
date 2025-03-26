@@ -122,50 +122,58 @@ const Todo = () => {
       <ol className="mt-6 w-full max-w-md space-y-2">
         {todo.length === 0 && <p className="text-gray-500 text-xl text-center">No Tasks Present...</p>}
         {todo.map((task, index) => (
-          <li
-            key={index}
-            className="flex items-center justify-between bg-white p-3 rounded shadow cursor-pointer"
-          >
-            {editMode ? (
-              <input
-                type="text"
-                value={task}
-                onChange={(e) => handleEdit(index, e.target.value)}
-                className={`flex-1 outline-none ${editMode ? "border-none" : "border border-gray-300 rounded px-4 py-2"}`}
-              />
-            ) : (
-              <span
-                onClick={() => toggleComplete(index)}
-                className={`text-lg ${completed[index] ? "line-through text-gray-500" : ""
-                  }`}
-              >
-                {task}
-              </span>
-            )}
-
-            {editMode && (
-              <div className="flex gap-2">
-                <button
-                  className="p-1 border border-gray-300 rounded hover:bg-gray-200 transition"
-                  onClick={() => moveUp(index)}
-                >
-                  ⬆️
-                </button>
-                <button
-                  className="p-1 border border-gray-300 rounded hover:bg-gray-200 transition"
-                  onClick={() => moveDown(index)}
-                >
-                  ⬇️
-                </button>
-                <button
-                  className="p-1 border border-red-400 text-red-600 rounded hover:bg-red-100 transition"
-                  onClick={() => deleteTodo(index)}
-                >
-                  🗑️
-                </button>
-              </div>
-            )}
-          </li>
+         <li
+         onClick={() => toggleComplete(index)}
+         key={index}
+         className={`flex items-center justify-between bg-white p-3 rounded shadow cursor-pointer ${
+           completed[index] ? "line-through text-gray-500" : ""
+         }`}
+       >
+         {editMode ? (
+           <input
+             type="text"
+             value={task}
+             onChange={(e) => handleEdit(index, e.target.value)}
+             className="flex-1 outline-none border border-gray-300 rounded px-4 py-2"
+             onClick={(e) => e.stopPropagation()} // Prevents toggling when clicking inside input
+           />
+         ) : (
+           <span>{task}</span>
+         )}
+       
+         {editMode && (
+           <div className="flex gap-2">
+             <button
+               className="p-1 border border-gray-300 rounded hover:bg-gray-200 transition"
+               onClick={(e) => {
+                 e.stopPropagation(); // Prevents toggling when clicking button
+                 moveUp(index);
+               }}
+             >
+               ⬆️
+             </button>
+             <button
+               className="p-1 border border-gray-300 rounded hover:bg-gray-200 transition"
+               onClick={(e) => {
+                 e.stopPropagation();
+                 moveDown(index);
+               }}
+             >
+               ⬇️
+             </button>
+             <button
+               className="p-1 border border-red-400 text-red-600 rounded hover:bg-red-100 transition"
+               onClick={(e) => {
+                 e.stopPropagation();
+                 deleteTodo(index);
+               }}
+             >
+               🗑️
+             </button>
+           </div>
+         )}
+       </li>
+       
         ))}
       </ol>
 
