@@ -86,9 +86,10 @@ const Todo = () => {
     setCompleted(updatedCompleted);
   };
   const deleteAll = () => {
-    if (window.confirm("Are you sure you want to delete all tasks?")) {
+    if (todo.length > 0 && window.confirm("Are you sure you want to delete all tasks?")) {
       setTodo([]);
-    }
+      setCompleted([]);
+    };
   };
 
   return (
@@ -101,13 +102,6 @@ const Todo = () => {
           onClick={() => {
             if (todo.length > 0) {
               setEditMode(!editMode);
-              setNoTask(!noTask)
-
-            }
-            else {
-              setNoTask(!noTask);
-              console.log(noTask);
-
             }
           }}
         >
