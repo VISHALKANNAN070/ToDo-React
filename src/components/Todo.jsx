@@ -73,21 +73,35 @@ const Todo = () => {
     setTodo(updatedTodos);
     setCompleted(updatedCompleted);
   };
+  const deleteAll = () => {
+    if (window.confirm("Are you sure you want to delete all tasks?")) {
+      setTodo([]);
+    }
+  };
 
   return (
     <div className=" min-h-screen bg-gray-100 flex flex-col items-center p-6">
       <h1 className="font text-3xl font-bold mb-4">TO DO LIST</h1>
 
-      <button
-        className="mb-4 text-2xl p-2 bg-gray-200 rounded hover:bg-gray-300 transition"
-        onClick={() => {
-          if (todo.length > 0) {
-            setEditMode(!editMode);
-          }
-        }}
-      >
-        {editMode && (todo.length > 0) ? "Done" : "Edit"}
-      </button>
+      <div className="flex gap-4">
+        <button
+          className="mb-4 text-2xl p-2 bg-gray-200 rounded hover:bg-gray-300 transition"
+          onClick={() => {
+            if (todo.length > 0) {
+              setEditMode(!editMode);
+              setNoTask(!noTask)
+
+            }
+            else {
+              setNoTask(!noTask);
+              console.log(noTask);
+
+            }
+          }}
+        >
+          {editMode && (todo.length > 0) ? "Done" : "Edit"}
+        </button>
+        <button onClick={deleteAll} className="mb-4 text-2xl p-2 bg-gray-200 rounded hover:bg-gray-300 transition">Delete All</button></div>
 
       <div className="flex w-full max-w-md gap-2">
         <input
@@ -106,6 +120,7 @@ const Todo = () => {
       </div>
 
       <ol className="mt-6 w-full max-w-md space-y-2">
+        {todo.length === 0 && <p className="text-gray-500 text-xl text-center">No Tasks Present...</p>}
         {todo.map((task, index) => (
           <li
             key={index}
@@ -153,6 +168,7 @@ const Todo = () => {
           </li>
         ))}
       </ol>
+
     </div>
   );
 };
